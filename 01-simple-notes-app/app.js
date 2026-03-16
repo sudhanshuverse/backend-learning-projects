@@ -1,22 +1,31 @@
-const serverless = require("serverless-http");
-const express = require("express");
-const mongoose = require("mongoose");
-const noteRouters = require("../routes/noteRoutes");
+// External modules
+const express = require('express');
+const mongoose = require('mongoose');
+
+// Local modules
+const noteRouters = require('./routes/noteRoutes');
 
 const app = express();
 
-const DB_PATH = process.env.MONGO_URI;
+const DB_PATH = process.env.MONGO_URI || "your-mongodb-connection";
 
+// view engine
 app.set("view engine", "ejs");
-app.set("views", "../views");
 
+// middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+// routes
 app.use("/", noteRouters);
 
-mongoose.connect(DB_PATH)
-.then(()=> console.log("Mongo Connected"))
-.catch(err=> console.log(err));
+const PORT = 8000;
 
-module.exports = serverless(app);
+mongoose.connect(DB_PATH)
+.then(() => {
+    console.log("Mongo Connected");
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+    });
+})
+.catch(err => console.log(err));
