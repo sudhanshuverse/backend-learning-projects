@@ -1,31 +1,31 @@
-// External modules
+// External module
 const express = require('express');
-const mongoose = require('mongoose');
+const { default: mongoose } = require('mongoose');
+const DB_PATH = "mongodb://root:root@ac-u0nafti-shard-00-00.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-01.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-02.r9jtfbr.mongodb.net:27017/notes?ssl=true&replicaSet=atlas-dvojmu-shard-0&authSource=admin&appName=Practice";
 
-// Local modules
+// Local module
 const noteRouters = require('./routes/noteRoutes');
 
 const app = express();
 
-const DB_PATH = process.env.MONGO_URI || "your-mongodb-connection";
-
-// view engine
+// set view engine
 app.set("view engine", "ejs");
 
 // middleware
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));  // server static files
+app.use(express.urlencoded({ extended: true }));  // This middleware read's form data
 
 // routes
 app.use("/", noteRouters);
 
-const PORT = 8000;
 
+const PORT = 8000;
 mongoose.connect(DB_PATH)
-.then(() => {
-    console.log("Mongo Connected");
-    app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
+    .then(() => {
+        console.log('Connected to Mongo');
+        app.listen(PORT, () => {
+            console.log(`Server running on address http://localhost:${PORT}`);
+        });
+    }).catch(err => {
+        console.log('Error while connecting to Mongo: ', err);
     });
-})
-.catch(err => console.log(err));
