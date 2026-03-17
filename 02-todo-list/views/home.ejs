@@ -6,7 +6,34 @@
     <title>Home</title>
     <link rel="stylesheet" href="/output.css">
 </head>
-<body>
-    <h1 class="bg-amber-200">Hello this is home page</h1>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-xl bg-white shadow-lg rounded-xl p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Todo App</h1>
+        <form action="/submit" method="POST" class="flex gap-2 mb-6">
+            <input type="text" name="task" placeholder="Enter task..."class="flex-1 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit"class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Add
+            </button>
+        </form>
+
+        <!-- Todo List -->
+        <ul class="space-y-3">
+            <% if (todos.length === 0) { %>
+                <p class="text-gray-400 text-center">No tasks yet</p>
+            <% } %>
+            <% todos.forEach(todo => { %>
+                <li class="flex items-center bg-gray-50 border rounded-lg p-3">
+                    <span class="flex-1 text-gray-700 <%= todo.status ? 'line-through text-gray-400' : '' %>"><%= todo.task %></span>
+                    <a href="/toggle/<%= todo._id %>">
+                        <button class="bg-green-500 text-white px-3 py-1 rounded mr-2 hover:bg-green-600"><%= todo.status ? 'Undo' : 'Done' %></button>
+                    </a>
+                    <a href="/delete/<%= todo._id %>">
+                        <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</button>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+
+    </div>
+
 </body>
 </html>
