@@ -3,24 +3,23 @@ const express = require('express');
 const { default: mongoose } = require('mongoose');
 
 // Local module
+const todoRoutes = require('./routes/todoRoutes');
 
-
-// MongoDB connection string (MongoDB Atlas cluster)
+// Mongodb url
 const DB_PATH = "mongodb://root:root@ac-u0nafti-shard-00-00.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-01.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-02.r9jtfbr.mongodb.net:27017/todo?ssl=true&replicaSet=atlas-dvojmu-shard-0&authSource=admin&appName=Practice";
 
-// Create Express application
+
 const app = express();
 
-// Set EJS as the template/view engine
+// view engine ejs
 app.set('view engine', 'ejs');
 
-// middleware
-app.use(express.static('public'));  // Serves static files(CSS, JS, Assets)
-app.use(express.urlencoded({ extended: true }));  // Parses URL-encoded form data from requests (req.body)
+// Middleware
+app.use(express.static('public'))  // server static files
+app.use(express.urlencoded({ extended: true }));  // Enable to to access form data
 
-app.use('/', (req, res) => {
-    res.render('home');
-})
+app.use("/", todoRoutes)
+
 
 const PORT = 8000;
 mongoose.connect(DB_PATH)
@@ -29,6 +28,5 @@ mongoose.connect(DB_PATH)
             console.log(`Server is running on http://localhost:${PORT}`);
         })
     }).catch(err => {
-        console.log('Error while connecting mongo', err);
+        console.log('Error while connecting mongoose', err);
     })
-
