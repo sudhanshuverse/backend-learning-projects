@@ -24,6 +24,7 @@ app.use("/", todoRoutes)
 const PORT = 8000;
 mongoose.connect(DB_PATH)
     .then(() => {
+        console.log("Mongodb is successfully connected");
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         })
