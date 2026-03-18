@@ -22,7 +22,7 @@ app.use("/", noteRouters);
 const PORT = 8000;
 mongoose.connect(DB_PATH)
     .then(() => {
-        console.log('Connected to Mongo');
+        console.log('Mongodb is successfully connected');
         app.listen(PORT, () => {
             console.log(`Server running on address http://localhost:${PORT}`);
         });
