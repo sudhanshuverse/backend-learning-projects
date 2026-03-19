@@ -2,6 +2,9 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 
+// Local modules
+const feedbackRouter = require("./routers/feedbackRouter");
+
 const app = express();
 
 
@@ -15,9 +18,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'))  // Access the static files
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-    res.send("<h1>Hello, how are you</h1>")
-})
+app.use("/", feedbackRouter);
 
 
 const PORT = 8000;
