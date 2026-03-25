@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+
+<body class="bg-slate-900 text-slate-200">
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center text-sky-400 mb-8">🚀 URL Shortener</h1>
+        <div class="bg-slate-800 p-6 rounded-xl shadow-lg mb-8">
+            <form action="/submit" method="POST" class="flex gap-3">
+                <input  type="text"  name="url"  required  placeholder="https://example.com" class="flex-1 px-4 py-2 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                <button type="submit"class="bg-sky-400 text-slate-900 px-5 py-2 rounded-lg font-semibold hover:bg-sky-500 transition">Shorten</button>
+            </form>
+        </div>
+
+        <!-- Table -->
+        <% if(allUser.length > 0) { %>
+            <div class="bg-slate-800 rounded-xl shadow-lg overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="p-3 text-left">Original URL</th>
+                            <th class="p-3 text-left">Short URL</th>
+                            <th class="p-3 text-center">Clicks</th>
+                            <th class="p-3 text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% allUser.forEach((item)=> { %>
+                            <tr class="border-b border-slate-700 hover:bg-slate-700/40 transition">
+                                <td class="p-3 truncate max-w-xs"> <%= item.url %></td>
+                                <td class="p-3">
+                                    <a href="/<%= item.shortId %>" class="text-sky-400 hover:underline" target="_blank">localhost:8000/<%= item.shortId %></a>
+                                </td>
+                                <td class="p-3 text-center font-semibold"><%= item.clicks %></td>
+                                <td class="p-3 text-center">
+                                    <form action="/delete/<%= item.shortId %>" method="POST">
+                                        <button class="bg-red-500 px-3 py-1 rounded-md text-white hover:bg-red-600 transition">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="text-center text-slate-400 mt-10">
+                <p class="text-lg">No URLs yet 👀</p>
+                <p class="text-sm">Add one above to get started</p>
+            </div>
+        <% } %>
+    </div>
+
+</body>
+</html>
