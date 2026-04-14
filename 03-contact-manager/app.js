@@ -6,7 +6,7 @@ const { default: mongoose } = require('mongoose');
 const contactRouter = require("./routers/contactRouter");
 
 // Mongoose URL
-const DB_PATH = "mongodb://root:root@ac-u0nafti-shard-00-00.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-01.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-02.r9jtfbr.mongodb.net:27017/contact?ssl=true&replicaSet=atlas-dvojmu-shard-0&authSource=admin&appName=Practice";
+const DB_PATH = "mongodb://localhost:27017//contact";
 
 
 const app = express();
