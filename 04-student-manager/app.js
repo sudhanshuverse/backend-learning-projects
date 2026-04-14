@@ -6,7 +6,7 @@ const { default: mongoose } = require('mongoose');
 const studentRouter = require("./Routers/studentRouter");
 
 // Mongoose URL
-const DB_PATH = "mongodb://root:root@ac-u0nafti-shard-00-00.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-01.r9jtfbr.mongodb.net:27017,ac-u0nafti-shard-00-02.r9jtfbr.mongodb.net:27017/student?ssl=true&replicaSet=atlas-dvojmu-shard-0&authSource=admin&appName=Practice";
+const DB_PATH = "mongodb://localhost:27017//student";
 const app = express();
 
 // view engine ejs
